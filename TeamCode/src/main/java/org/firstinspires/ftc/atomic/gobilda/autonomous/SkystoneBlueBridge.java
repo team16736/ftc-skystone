@@ -30,12 +30,12 @@ public class SkystoneBlueBridge extends HelperAction {
         left_sensor = hardwareMap.get(ColorSensor.class, ConfigConstants.LEFT_COLOR); // NOT USED
         left_sensor.enableLed(false);
 
-        DriveWheelActions wheelActions = new DriveWheelActions(telemetry, hardwareMap);
+        DriveWheelActions driveActions = new DriveWheelActions(telemetry, hardwareMap);
         waitForStart();
 
         // Step 1: Move FORWARD
-        wheelActions.applySensorSpeed = true;// we have altered the speed for the forwards movement
-        drive_ForwardAndStop(wheelActions, SPEED, 1.2);
+        driveActions.applySensorSpeed = true;// we have altered the speed for the forwards movement
+        drive_ForwardAndStop(driveActions, SPEED, 1.2);
         sleep(3000);
 
         // Step --> detect skystone using sensor
@@ -49,11 +49,11 @@ public class SkystoneBlueBridge extends HelperAction {
             telemetry.update();
 
             sleep(3000);
-            collectStoneAndDeliverBlueSide(wheelActions, 2.0);
+            collectStoneAndDeliverBlueSide(driveActions, 2.0);
 
         } else {
 
-            strafe_RightAndStop(wheelActions, SPEED, 0.4);
+            strafe_RightAndStop(driveActions, SPEED, 0.4);
             sleep(3000);
             foundStone = isThisSkystone(right_sensor, hsvValues);
 
@@ -63,28 +63,28 @@ public class SkystoneBlueBridge extends HelperAction {
                 telemetry.update();
 
                 sleep(3000);
-                collectStoneAndDeliverBlueSide(wheelActions, 2.7);
+                collectStoneAndDeliverBlueSide(driveActions, 2.7);
 
             } else {
 
                 telemetry.addData("Found black block: ", "3");
                 telemetry.update();
 
-                strafe_RightAndStop(wheelActions, SPEED, 0.4);
+                strafe_RightAndStop(driveActions, SPEED, 0.4);
                 sleep(3000);
-                collectStoneAndDeliverBlueSide(wheelActions, 3.0);
+                collectStoneAndDeliverBlueSide(driveActions, 3.0);
             }
         }
 
         //Step8: Move backwards to park under bridge
-        drive_ReverseAndStop(wheelActions, SPEED, 0.7);
+        drive_ReverseAndStop(driveActions, SPEED, 0.7);
         foundStone = false;
         sleep(1000);
 
         //Turn OFF the sensor LED
         right_sensor.enableLed(false);
         left_sensor.enableLed(false);
-        wheelActions.applySensorSpeed = false;// we have altered the speed for the forwards movement
+        driveActions.applySensorSpeed = false;// we have altered the speed for the forwards movement
 
         telemetry.addData("Mission complete!! ", " Woot ");
         telemetry.update();

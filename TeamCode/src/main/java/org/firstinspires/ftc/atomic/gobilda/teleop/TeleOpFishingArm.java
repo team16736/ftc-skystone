@@ -10,11 +10,11 @@ import org.firstinspires.ftc.atomic.gobilda.actions.DriveWheelActions;
 import org.firstinspires.ftc.atomic.gobilda.actions.HookActions;
 import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
 
-@TeleOp(name="Mecannum-Christmas", group="Linear Opmode")
+@TeleOp(name="TeleOp-Original-Arm", group="Linear Opmode")
 public class TeleOpFishingArm extends LinearOpMode {
 
     private HookActions hookActions = null;
-    private DriveWheelActions driveWheelActions = null;
+    private DriveWheelActions driveActions = null;
     private ArmElbowGripperActions armActions = null;
 
     private DcMotor armDrive = null;
@@ -26,7 +26,7 @@ public class TeleOpFishingArm extends LinearOpMode {
     public void runOpMode() {
 
         hookActions = new HookActions(telemetry, hardwareMap);
-        driveWheelActions = new DriveWheelActions(telemetry, hardwareMap);
+        driveActions = new DriveWheelActions(telemetry, hardwareMap);
         armActions = new ArmElbowGripperActions(telemetry, hardwareMap);
 
         armDrive  = hardwareMap.get(DcMotor.class, ConfigConstants.ARM);
@@ -38,7 +38,7 @@ public class TeleOpFishingArm extends LinearOpMode {
         grabberServo.setDirection(Servo.Direction.FORWARD);
 
         //Set Speed for teleOp
-        driveWheelActions.setSpeed(1.0);
+        driveActions.setSpeed(1.0);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -46,7 +46,7 @@ public class TeleOpFishingArm extends LinearOpMode {
         while (opModeIsActive()) {
 
             /** Gamepad 1 **/
-            driveWheelActions.drive(gamepad1.left_stick_x,      //joystick controlling strafe
+            driveActions.drive(gamepad1.left_stick_x,      //joystick controlling strafe
                                     -gamepad1.left_stick_y,     //joystick controlling forward/backward
                                     gamepad1.right_stick_x);    //joystick controlling rotation
 

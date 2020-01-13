@@ -11,7 +11,7 @@ import org.firstinspires.ftc.atomic.gobilda.actions.HookActions;
 import org.firstinspires.ftc.atomic.gobilda.actions.LinearSlideActions;
 import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
 
-@TeleOp(name="Mecannum-Sliding-Arm", group="Linear Opmode")
+@TeleOp(name="TeleOp-Sliding-Arm", group="Linear Opmode")
 public class TeleOpSlidingArm extends LinearOpMode {
 
     private HookActions hookActions = null;

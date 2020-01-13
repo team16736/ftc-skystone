@@ -121,7 +121,7 @@ public class DriveWheelActions {
         left_back.setDirection(MotorConstants.REVERSE);
         left_front.setDirection(MotorConstants.REVERSE);
 
-        right_back.setDirection(MotorConstants.REVERSE);
+        right_back.setDirection(MotorConstants.FORWARD);
         right_front.setDirection(MotorConstants.FORWARD);
     }
 
@@ -129,7 +129,7 @@ public class DriveWheelActions {
         left_back.setDirection(MotorConstants.FORWARD);
         left_front.setDirection(MotorConstants.FORWARD);
 
-        right_back.setDirection(MotorConstants.FORWARD);
+        right_back.setDirection(MotorConstants.REVERSE);
         right_front.setDirection(MotorConstants.REVERSE);
     }
 
@@ -137,7 +137,7 @@ public class DriveWheelActions {
         left_back.setDirection(MotorConstants.REVERSE);
         left_front.setDirection(MotorConstants.FORWARD);
 
-        right_back.setDirection(MotorConstants.FORWARD);
+        right_back.setDirection(MotorConstants.REVERSE);
         right_front.setDirection(MotorConstants.FORWARD);
     }
 
@@ -145,7 +145,7 @@ public class DriveWheelActions {
         left_back.setDirection(MotorConstants.FORWARD);
         left_front.setDirection(MotorConstants.REVERSE);
 
-        right_back.setDirection(MotorConstants.REVERSE);
+        right_back.setDirection(MotorConstants.FORWARD);
         right_front.setDirection(MotorConstants.REVERSE);
     }
 
@@ -153,7 +153,7 @@ public class DriveWheelActions {
         left_back.setDirection(MotorConstants.FORWARD);
         left_front.setDirection(MotorConstants.FORWARD);
 
-        right_back.setDirection(MotorConstants.REVERSE);
+        right_back.setDirection(MotorConstants.FORWARD);
         right_front.setDirection(MotorConstants.FORWARD);
     }
 
@@ -161,7 +161,7 @@ public class DriveWheelActions {
         left_back.setDirection(MotorConstants.REVERSE);
         left_front.setDirection(MotorConstants.REVERSE);
 
-        right_back.setDirection(MotorConstants.FORWARD);
+        right_back.setDirection(MotorConstants.REVERSE);
         right_front.setDirection(MotorConstants.REVERSE);
     }
 

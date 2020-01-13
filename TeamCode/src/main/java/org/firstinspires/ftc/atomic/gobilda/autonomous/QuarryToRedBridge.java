@@ -21,20 +21,20 @@ public class QuarryToRedBridge extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        DriveWheelActions driveWheelActions = new DriveWheelActions(telemetry, hardwareMap);
-        driveWheelActions.applySensorSpeed = true;
+        DriveWheelActions driveActions = new DriveWheelActions(telemetry, hardwareMap);
+        driveActions.applySensorSpeed = true;
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         // Step 1:  Drive Forward
-        driveWheelActions.setMotorDirection_Forward();
-        driveWheelActions.driveByTime(this, 0.3, 2.0);
-        driveWheelActions.stop();
+        driveActions.setMotorDirection_Forward();
+        driveActions.driveByTime(this, 0.3, 2.0);
+        driveActions.stop();
 
         // Step 2:  Strafe right
-        driveWheelActions.setMotorDirection_StrafeRight();
-        driveWheelActions.driveByTime(this, 0.35, 2.75);
-        driveWheelActions.stop();
+        driveActions.setMotorDirection_StrafeRight();
+        driveActions.driveByTime(this, 0.35, 2.75);
+        driveActions.stop();
 
     }
 }

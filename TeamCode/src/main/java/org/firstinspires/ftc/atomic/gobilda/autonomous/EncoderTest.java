@@ -12,8 +12,6 @@ import org.firstinspires.ftc.atomic.gobilda.utilities.MotorConstants;
  * Go forward and park under bridge
  */
 @Autonomous(name = "Encoder Test", group = "GoBilda")
-@Disabled
-
 public class EncoderTest extends LinearOpMode {
 
     public double SLOW_SPEED = 0.25;
