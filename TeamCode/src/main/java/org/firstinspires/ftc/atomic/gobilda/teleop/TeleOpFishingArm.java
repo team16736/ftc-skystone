@@ -62,9 +62,14 @@ public class TeleOpFishingArm extends LinearOpMode {
 
             armActions.armUpDown(gamepad2.left_stick_y);     //arm up/down
 
+            //This is the original arm
+//          armActions.armUpDown(gamepad2.y,   //arm up - ORANGE button
+//                                gamepad2.x);    //arm down - GREEN button
 
-            armActions.armUpDown(gamepad2.y,   //arm up - ORANGE button
-                                gamepad2.x);    //arm down - GREEN button
+
+            //Rahul - tested on 1/12 night ***
+            armActions.slideUpDown(gamepad2.y,   //arm up - ORANGE button
+                                    gamepad2.x);    //arm down - GREEN button
 
 
             armActions.grabberOpenClose(gamepad2.left_bumper,  //open grabber

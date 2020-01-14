@@ -86,6 +86,36 @@ public class ArmElbowGripperActions {
     }
 
 
+    public void slideUpDown(boolean armUp, boolean armDown) {
+
+        arm_current_position = armMotor.getCurrentPosition();
+        telemetry.addData("Arm CURRENT: ", armMotor.getCurrentPosition() + " Timestamp: " + System.currentTimeMillis());
+
+        if(armDown) {
+
+            arm_current_position = arm_current_position + 50; //Going down slow
+
+            armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            armMotor.setTargetPosition(arm_current_position);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(0.4);
+
+            telemetry.addData("Arm: ", "UP");
+
+        } else if(armUp) {
+
+            arm_current_position = arm_current_position - 250; //Going up fast
+
+            armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            armMotor.setTargetPosition(arm_current_position);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(1.0);
+            telemetry.addData("Arm: ", "DOWN");
+        }
+
+        telemetry.addData("Arm TARGET: ", arm_current_position + " Timestamp: " + System.currentTimeMillis());
+    }
+
     public void magicButton(boolean isMagicButtonPressed){
 
 
