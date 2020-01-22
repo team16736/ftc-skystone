@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.atomic.rev;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,6 +14,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name = "Basic: Hooks Arm OpMode", group = "Iterative Opmode")
+@Disabled
 public class BasicRobotMoveWithArm extends OpMode {
 
     public static final String LEFT_DRIVE = "left_drive";

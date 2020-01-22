@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.atomic.rev;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,6 +13,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name = "Basic: Bjorn", group = "Iterative Opmode")
+@Disabled
 public class ArmBlockGrabber extends OpMode {
 
     //The string values provide here should match the hardware variables names used on the RC phone (16736-C-RC - Robot Controller app)

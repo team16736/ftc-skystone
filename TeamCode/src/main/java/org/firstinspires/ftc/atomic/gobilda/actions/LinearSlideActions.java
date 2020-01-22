@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class LinearSlideActions {
 
-    public DcMotor left_front;
+    public DcMotor slide;
 
     //the amount to throttle the power of the motors
     public double THROTTLE = 0.5;
@@ -46,7 +46,7 @@ public class LinearSlideActions {
         this.hardwareMap = opModeHardware;
 
         // 1. Hardware config
-        left_front = hardwareMap.get(DcMotor.class, ConfigConstants.FRONT_LEFT);
+        slide = hardwareMap.get(DcMotor.class, ConfigConstants.ARM);
 
         // 2. Set direction
         setMotorDirection_Down();
@@ -94,7 +94,7 @@ public class LinearSlideActions {
             backRightValue = backRightValue / max;
         }
 
-        left_front.setPower(frontLeftValue);
+        slide.setPower(frontLeftValue);
     }
 
     private double getMaxPower(double frontLeftValue, double frontRightValue, double backLeftValue, double backRightValue) {
@@ -109,27 +109,27 @@ public class LinearSlideActions {
 
     public void setMotorDirection_Down() {
 
-        left_front.setDirection(MotorConstants.REVERSE);
+        slide.setDirection(MotorConstants.REVERSE);
     }
 
     public void setMotorDirection_Up() {
 
-        left_front.setDirection(MotorConstants.FORWARD);
+        slide.setDirection(MotorConstants.FORWARD);
     }
 
     public void stop() {
 
-        left_front.setPower(0);
+        slide.setPower(0);
     }
 
     public void applyBrake() {
 
-        left_front.setZeroPowerBehavior(MotorConstants.BRAKE);
+        slide.setZeroPowerBehavior(MotorConstants.BRAKE);
     }
 
     public void driveByTime(LinearOpMode opMode, double speed, double drivingTime) {
 
-        left_front.setPower(speed);  //Speed needed for hooks (this is our normal speed)
+        slide.setPower(speed);  //Speed needed for hooks (this is our normal speed)
 
         opMode.sleep((long) (1000 * drivingTime));
     }
@@ -163,13 +163,13 @@ public class LinearSlideActions {
      */
     private void driveByRevolution(int revolutions, double power){
 
-        left_front.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        left_front.setTargetPosition(revolutions);
-        left_front.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        left_front.setPower(power);
+        slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slide.setTargetPosition(revolutions);
+        slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide.setPower(power);
 
         telemetry.addData("Current Position: ",
-                "left_front: ", left_front.getCurrentPosition());
+                "slide: ", slide.getCurrentPosition());
         telemetry.update();
     }
 
@@ -195,7 +195,7 @@ public class LinearSlideActions {
      */
     public boolean isMoving() {
 
-        return left_front.isBusy();
+        return slide.isBusy();
     }
 
     //NOT TESTED

@@ -153,15 +153,15 @@ public class MecanumDriveWheelEncoderActions {
 //        right_back.setTargetPosition(revolutions);
 //        right_back.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //
-//        left_front.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        left_front.setTargetPosition(revolutions);
-//        left_front.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        slide.setTargetPosition(revolutions);
+//        slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //
 //        right_front.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        right_front.setTargetPosition(revolutions);
 //        right_front.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //
-//        left_front.setPower(power);
+//        slide.setPower(power);
 //        right_back.setPower(power);
 //        left_back.setPower(power);
 //        right_front.setPower(power);

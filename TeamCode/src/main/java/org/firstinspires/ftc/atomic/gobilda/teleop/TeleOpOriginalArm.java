@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.atomic.gobilda.teleop;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,7 +12,8 @@ import org.firstinspires.ftc.atomic.gobilda.actions.HookActions;
 import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
 
 @TeleOp(name="TeleOp-Original-Arm", group="Linear Opmode")
-public class TeleOpFishingArm extends LinearOpMode {
+@Disabled
+public class TeleOpOriginalArm extends LinearOpMode {
 
     private HookActions hookActions = null;
     private DriveWheelActions driveActions = null;
@@ -46,38 +48,24 @@ public class TeleOpFishingArm extends LinearOpMode {
         while (opModeIsActive()) {
 
             /** Gamepad 1 **/
-            driveActions.drive(gamepad1.left_stick_x,      //joystick controlling strafe
+            driveActions.drive(gamepad1.left_stick_x,           //joystick controlling strafe
                                     -gamepad1.left_stick_y,     //joystick controlling forward/backward
                                     gamepad1.right_stick_x);    //joystick controlling rotation
-
-
-            //NOT TESTED
-            armActions.magicButton(gamepad1.guide);     //Grab the block and raise the arm up - driver 1
-
 
             /** Gamepad 2 **/
             hookActions.hookUpDown(gamepad2.dpad_left,         //key to move up hookUpDown
                                     gamepad2.dpad_right);       //key to move down hookUpDown
 
 
-            armActions.armUpDown(gamepad2.left_stick_y);     //arm up/down
-
-            //This is the original arm
-//          armActions.armUpDown(gamepad2.y,   //arm up - ORANGE button
-//                                gamepad2.x);    //arm down - GREEN button
-
-
-            //Rahul - tested on 1/12 night ***
-            armActions.slideUpDown(gamepad2.y,   //arm up - ORANGE button
-                                    gamepad2.x);    //arm down - GREEN button
-
-
-            armActions.grabberOpenClose(gamepad2.left_bumper,  //open grabber
+            armActions.grabberOpenClose(gamepad2.left_bumper,   //open grabber
                                         gamepad2.right_bumper); //close grabber
 
+            armActions.elbowOpenClose(gamepad2.dpad_up,         //elbow up
+                                        gamepad2.dpad_down);    //elbow down
 
-            armActions.elbowOpenClose(gamepad2.dpad_up,    //elbow up
-                                    gamepad2.dpad_down);    //elbow down
+            //REV - Core Hex Motor -- Old Arm
+            armActions.armUpDown(gamepad2.y,                    //arm up - ORANGE button
+                                gamepad2.x);                    //arm down - GREEN button
 
             telemetry.update();
         }

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.atomic.gobilda.teleop;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -37,28 +38,21 @@ public class TeleOpSlidingArm extends LinearOpMode {
         while (opModeIsActive()) {
 
             /** Gamepad 1 **/
-            driveActions.drive(gamepad1.left_stick_x,      //joystick controlling strafe
-                        -gamepad1.left_stick_y,     //joystick controlling forward/backward
-                        gamepad1.right_stick_x);    //joystick controlling rotation
-
+            driveActions.drive(gamepad1.left_stick_x,       //joystick controlling strafe
+                            -gamepad1.left_stick_y,         //joystick controlling forward/backward
+                            gamepad1.right_stick_x);        //joystick controlling rotation
 
             /** Gamepad 2 **/
-            hookActions.hookUpDown(gamepad2.dpad_left,         //key to move up hookUpDown
+            hookActions.hookUpDown(gamepad2.dpad_left,          //key to move up hookUpDown
                                     gamepad2.dpad_right);       //key to move down hookUpDown
 
+            armActions.elbowOpenClose(gamepad2.dpad_up,         //elbow up
+                                    gamepad2.dpad_down);        //elbow down
 
-            armActions.elbowOpenClose(gamepad2.dpad_up,    //elbow up
-                    gamepad2.dpad_down);    //elbow down
+            armActions.grabberOpenClose(gamepad2.left_bumper,   //open grabber
+                                    gamepad2.right_bumper);     //close grabber
 
-
-            armActions.grabberOpenClose(gamepad2.left_bumper,  //open grabber
-                    gamepad2.right_bumper); //close grabber
-
-
-            slideActions.drive(gamepad2.left_stick_x,      //joystick controlling strafe
-                    -gamepad1.left_stick_y,     //joystick controlling forward/backward
-                    gamepad1.right_stick_x);    //joystick controlling rotation
-
+            armActions.armUpDown_LinearSlide(gamepad2.left_stick_y);     //arm up/down uses Linear Slide
 
             telemetry.update();
         }

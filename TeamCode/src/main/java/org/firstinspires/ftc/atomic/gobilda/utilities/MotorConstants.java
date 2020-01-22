@@ -20,6 +20,15 @@ public class MotorConstants {
     public static final DcMotor.ZeroPowerBehavior BRAKE = DcMotor.ZeroPowerBehavior.BRAKE;
 
 
+    // Ticks per millimeter of robot travel is:
+    // (7x4x2x13.7) / (96 * pi) = 2.5438 ticks/mm
+    // (poles per encoder magnet) * (number of edges) * (gear ratio of bevel gears) * (gear ratio) / (wheel circumference)
+
+
+    public static final double TICKS_PER_MM = 2.5438;
+    public static final double TICKS_PER_INCH = 64.71;
+
+
     // You can have the method take a parameter of distance, and convert that to encoder ticks.
 
     // 5202 Series Yellow Jacket Planetary Gear Motor (13.7:1 Ratio, 435 RPM, 3.3 - 5V Encoder)

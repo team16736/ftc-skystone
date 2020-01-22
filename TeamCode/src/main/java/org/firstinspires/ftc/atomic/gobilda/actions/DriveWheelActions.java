@@ -3,6 +3,7 @@ package org.firstinspires.ftc.atomic.gobilda.actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
 import org.firstinspires.ftc.atomic.gobilda.utilities.MotorConstants;
@@ -25,8 +26,9 @@ import java.util.List;
 public class DriveWheelActions {
 
     public DcMotor left_front;
-    public DcMotor right_front;
     public DcMotor left_back;
+
+    public DcMotor right_front;
     public DcMotor right_back;
 
     //the amount to throttle the power of the motors
@@ -34,6 +36,7 @@ public class DriveWheelActions {
 
     private Telemetry telemetry;
     private HardwareMap hardwareMap;
+    private ElapsedTime runtime = new ElapsedTime();
 
     public boolean applySensorSpeed = false;
 
@@ -50,10 +53,10 @@ public class DriveWheelActions {
 
         // 1. Hardware config
         left_front = hardwareMap.get(DcMotor.class, ConfigConstants.FRONT_LEFT);
-        right_front = hardwareMap.get(DcMotor.class, ConfigConstants.FRONT_RIGHT);
-
-        right_back = hardwareMap.get(DcMotor.class, ConfigConstants.BACK_RIGHT);
         left_back = hardwareMap.get(DcMotor.class, ConfigConstants.BACK_LEFT);
+
+        right_front = hardwareMap.get(DcMotor.class, ConfigConstants.FRONT_RIGHT);
+        right_back = hardwareMap.get(DcMotor.class, ConfigConstants.BACK_RIGHT);
 
         // 2. Set direction
         setMotorDirection_Forward();
@@ -87,24 +90,31 @@ public class DriveWheelActions {
      */
     public void driveUsingJoyStick(double speedX, double speedY, double rotation) {
 
-        double backLeftValue = -speedX + speedY + rotation;
-        double frontLeftValue = speedX + speedY + rotation;
+        double frontLeft = speedX + speedY + rotation;
+        double frontRight = speedX + speedY - rotation;
 
-        double backRightValue = speedX + speedY - rotation;
-        double frontRightValue = -speedX + speedY - rotation;
+        double backLeft = -speedX + speedY + rotation;
+        double backRight = -speedX + speedY - rotation;
 
-        double max = getMaxPower(frontLeftValue, frontRightValue, backLeftValue, backRightValue);
+
+//        double fl = speedX + speedY + rotation;
+//        double fr = -speedX + speedY - rotation;
+//        double bl= -speedX + speedY + rotation;
+//        double br = speedX + speedY - rotation;
+
+
+        double max = getMaxPower(frontLeft, frontRight, backLeft, backRight);
         if (max > 1) {
-            frontLeftValue = frontLeftValue / max;
-            frontRightValue = frontRightValue / max;
-            backLeftValue = backLeftValue / max;
-            backRightValue = backRightValue / max;
+            frontLeft = frontLeft / max;
+            frontRight = frontRight / max;
+            backLeft = backLeft / max;
+            backRight = backRight / max;
         }
 
-        right_front.setPower(frontRightValue);
-        left_front.setPower(frontLeftValue);
-        right_back.setPower(backRightValue);
-        left_back.setPower(backLeftValue);
+        right_front.setPower(frontRight);
+        left_front.setPower(frontLeft);
+        right_back.setPower(backRight);
+        left_back.setPower(backLeft);
     }
 
     private double getMaxPower(double frontLeftValue, double frontRightValue, double backLeftValue, double backRightValue) {
@@ -117,52 +127,58 @@ public class DriveWheelActions {
         return Collections.max(valueList);
     }
 
+    //This methods is meant for AUTONOMOUS
     public void setMotorDirection_Forward() {
-        left_back.setDirection(MotorConstants.REVERSE);
         left_front.setDirection(MotorConstants.REVERSE);
+        left_back.setDirection(MotorConstants.REVERSE);
 
-        right_back.setDirection(MotorConstants.FORWARD);
         right_front.setDirection(MotorConstants.FORWARD);
+        right_back.setDirection(MotorConstants.FORWARD);
     }
 
+    //This methods is meant for AUTONOMOUS
     public void setMotorDirection_Reverse() {
-        left_back.setDirection(MotorConstants.FORWARD);
-        left_front.setDirection(MotorConstants.FORWARD);
-
-        right_back.setDirection(MotorConstants.REVERSE);
-        right_front.setDirection(MotorConstants.REVERSE);
-    }
-
-    public void setMotorDirection_StrafeLeft() {
+        left_front.setDirection(MotorConstants.REVERSE);
         left_back.setDirection(MotorConstants.REVERSE);
-        left_front.setDirection(MotorConstants.FORWARD);
 
-        right_back.setDirection(MotorConstants.REVERSE);
         right_front.setDirection(MotorConstants.FORWARD);
+        right_back.setDirection(MotorConstants.FORWARD);
     }
 
+    //This methods is meant for AUTONOMOUS
+    public void setMotorDirection_StrafeLeft() {
+        left_front.setDirection(MotorConstants.FORWARD);
+        left_back.setDirection(MotorConstants.REVERSE);
+
+        right_front.setDirection(MotorConstants.FORWARD);
+        right_back.setDirection(MotorConstants.FORWARD);
+    }
+
+    //This methods is meant for AUTONOMOUS
     public void setMotorDirection_StrafeRight() {
+        left_front.setDirection(MotorConstants.REVERSE);
         left_back.setDirection(MotorConstants.FORWARD);
+
+        right_front.setDirection(MotorConstants.REVERSE);
+        right_back.setDirection(MotorConstants.REVERSE);
+    }
+
+    //This methods is meant for AUTONOMOUS
+    public void setMotorDirection_SpinLeft() {
+        left_back.setDirection(MotorConstants.REVERSE);
         left_front.setDirection(MotorConstants.REVERSE);
 
-        right_back.setDirection(MotorConstants.FORWARD);
-        right_front.setDirection(MotorConstants.REVERSE);
-    }
-
-    public void setMotorDirection_SpinLeft() {
-        left_back.setDirection(MotorConstants.FORWARD);
-        left_front.setDirection(MotorConstants.FORWARD);
-
-        right_back.setDirection(MotorConstants.FORWARD);
+        right_back.setDirection(MotorConstants.REVERSE);
         right_front.setDirection(MotorConstants.FORWARD);
     }
 
+    //This methods is meant for AUTONOMOUS
     public void setMotorDirection_SpinRight() {
         left_back.setDirection(MotorConstants.REVERSE);
         left_front.setDirection(MotorConstants.REVERSE);
 
         right_back.setDirection(MotorConstants.REVERSE);
-        right_front.setDirection(MotorConstants.REVERSE);
+        right_front.setDirection(MotorConstants.FORWARD);
     }
 
     public void stop() {
@@ -192,10 +208,9 @@ public class DriveWheelActions {
         } else {
 
             left_front.setPower(speed);  //Speed needed for hooks (this is our normal speed)
-
         }
 
-        opMode.sleep((long)(1000 * drivingTime));
+        opMode.sleep((long)(1000 * drivingTime)); //Make the opMode wait - while it is driving
     }
 
 
@@ -209,68 +224,100 @@ public class DriveWheelActions {
      *                  - MecanumDrivetrain.DIRECTION_REVERSE
      *                  - MecanumDrivetrain.DIRECTION_STRAFE_LEFT
      *                  - MecanumDrivetrain.DIRECTION_STRAFE_RIGHT
-     * @param speed - The desired motor power (most accurate at low powers < 0.25)
+     * @param power - The desired motor power (most accurate at low powers < 0.25)
      */
-    public void driveByInches(int inches, int direction, double speed){
+    public void driveByInches(LinearOpMode opMode, int inches, int direction, double power){
 
-        setMotorDirection(direction);
 
-        driveByRevolution(convertDistanceToTarget(inches, direction) * 3, speed);
-    }
+        int ticksToReachTarget;
 
-    /**
-     * Method will motors a specified number of revolutions at the desired power
-     * agnostic of direction.
-     *
-     * @param revolutions - the number of motor encoder ticks to move
-     * @param power - the speed at which to move
-     */
-    private void driveByRevolution(int revolutions, double power){
+        if (direction == MotorConstants.DIRECTION_FORWARD || direction == MotorConstants.DIRECTION_REVERSE){
+
+            ticksToReachTarget = (int) Math.round(inches * MotorConstants.TICKS_PER_INCH);
+        } else{
+
+            ticksToReachTarget = (int) Math.round(inches * MotorConstants.TICKS_PER_INCH);
+        }
+
+        telemetry.addData("ticksToReachTarget: ", "" + ticksToReachTarget);
+        telemetry.update();
+        opMode.sleep((long)(1000 * 3));
+
+        telemetry.addData("left_front current position: ", "" + left_front.getCurrentPosition());
+        telemetry.addData("left_back current position: ", "" + left_back.getCurrentPosition());
+        telemetry.addData("right_front current position: ", "" + right_front.getCurrentPosition());
+        telemetry.addData("right_back current position: ", ""+ right_back.getCurrentPosition());
+        telemetry.update();
+        opMode.sleep((long)(1000 * 3));
+
 
         left_front.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         left_back.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         right_front.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         right_back.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        left_front.setTargetPosition(revolutions);
-        left_back.setTargetPosition(revolutions);
-        right_front.setTargetPosition(revolutions);
-        right_back.setTargetPosition(revolutions);
+        telemetry.addData("STOP_AND_RESET_ENCODER", "---------------------");
+        telemetry.addData("left_front current position: ", "" + left_front.getCurrentPosition());
+        telemetry.addData("left_back current position: ", "" + left_back.getCurrentPosition());
+        telemetry.addData("right_front current position: ", "" + right_front.getCurrentPosition());
+        telemetry.addData("right_back current position: ", ""+ right_back.getCurrentPosition());
+        telemetry.update();
+        opMode.sleep((long)(1000 * 3));
 
+        // Determine new target position, and pass to motor controller
+
+        if (direction == MotorConstants.DIRECTION_FORWARD){
+
+            left_front.setTargetPosition(left_front.getCurrentPosition() + ticksToReachTarget);
+            left_back.setTargetPosition(left_back.getCurrentPosition() + ticksToReachTarget);
+            right_front.setTargetPosition(right_front.getCurrentPosition() + ticksToReachTarget);
+            right_back.setTargetPosition(right_back.getCurrentPosition() + ticksToReachTarget);
+
+        } else if (direction == MotorConstants.DIRECTION_REVERSE){
+
+            left_front.setTargetPosition(left_front.getCurrentPosition() + ticksToReachTarget);
+            left_back.setTargetPosition(left_back.getCurrentPosition() + ticksToReachTarget);
+            right_front.setTargetPosition(right_front.getCurrentPosition() - ticksToReachTarget);
+            right_back.setTargetPosition(right_back.getCurrentPosition() - ticksToReachTarget);
+        }
+
+        // Turn On RUN_TO_POSITION
         left_front.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         left_back.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         right_front.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         right_back.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        left_front.setPower(power);
-        left_back.setPower(power);
-        right_front.setPower(power);
-        right_back.setPower(power);
 
-        telemetry.addData("Current Position: ",
-                "left_front: ", left_front.getCurrentPosition(),
-                        "left_back: ", left_back.getCurrentPosition(),
-                        "right_front: ", right_front.getCurrentPosition(),
-                        "right_back: ", right_back.getCurrentPosition());
+        telemetry.addData("STOP_AND_RESET_ENCODER", "===============================");
+        telemetry.addData("left_front current position: ", "" + left_front.getCurrentPosition());
+        telemetry.addData("left_back current position: ", "" + left_back.getCurrentPosition());
+        telemetry.addData("right_front current position: ", "" + right_front.getCurrentPosition());
+        telemetry.addData("right_back current position: ", ""+ right_back.getCurrentPosition());
         telemetry.update();
-    }
+        opMode.sleep((long)(1000 * 3));
 
-    //NOT TESTED
-    private int convertDistanceToTarget(int inches, int direction){
 
-        float target;
+        // reset the timeout time and start motion.
+        runtime.reset();
+        left_front.setPower(Math.abs(power));
+        left_back.setPower(Math.abs(power));
+        right_front.setPower(Math.abs(power));
+        right_back.setPower(Math.abs(power));
 
-        if (direction == MotorConstants.DIRECTION_FORWARD
-                || direction == MotorConstants.DIRECTION_REVERSE){
 
-            target = inches * MotorConstants.ENCODER_CLICKS_FORWARD_1_INCH;
+        while (opMode.opModeIsActive() && (left_front.isBusy() || left_back.isBusy() || right_front.isBusy() || right_back.isBusy())) {
 
-        } else{
-            target = inches * MotorConstants.ENCODER_CLICKS_STRAFE_1_INCH;
+            telemetry.addData("left_front current position: ", "" + left_front.getCurrentPosition());
+            telemetry.addData("left_back current position: ", "" + left_back.getCurrentPosition());
+            telemetry.addData("right_front current position: ", "" + right_front.getCurrentPosition());
+            telemetry.addData("right_back current position: ", ""+ right_back.getCurrentPosition());
+            telemetry.update();
         }
 
-        return Math.round(target);
+        stop();
+
     }
+
 
     /**
      * Returns true if the robot is moving
@@ -300,7 +347,6 @@ public class DriveWheelActions {
             setMotorDirection_Forward();
         }
     }
-
 
 
 }
