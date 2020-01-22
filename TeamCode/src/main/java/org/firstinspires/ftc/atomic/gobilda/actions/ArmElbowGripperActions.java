@@ -24,16 +24,9 @@ public class ArmElbowGripperActions {
     private Servo grabberServo;
 
     private int arm_current_position = 50;
-    private int ARM_MIN_POSITION = -45;
-    private int ARM_MAX_POSITION = 75;
 
     private double grabber_position = 0.0;
-    private double GRABBER_MIN_POSITION = 0;
-    private double GRABBER_MAX_POSITION = 1.0;
-
     private double elbow_position = 0.0;
-    private double ELBOW_MIN_POSITION = 0;
-    private double ELBOW_MAX_POSITION = 1.0;
 
     public ArmElbowGripperActions(Telemetry opModeTelemetry, HardwareMap opModeHardware) {
 
@@ -49,12 +42,11 @@ public class ArmElbowGripperActions {
         armMotor.setDirection(DcMotor.Direction.REVERSE);
         elbowServo.setDirection(Servo.Direction.REVERSE);
         grabberServo.setDirection(Servo.Direction.FORWARD);
-
-        //armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void armUpDown(boolean armUp, boolean armDown) {
 
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm_current_position = armMotor.getCurrentPosition();
         telemetry.addData("Arm CURRENT: ", armMotor.getCurrentPosition() + " Timestamp: " + System.currentTimeMillis());
 
@@ -113,12 +105,12 @@ public class ArmElbowGripperActions {
         if (elbowClose) {
 
             elbow_position = elbow_position + 0.2;
-            elbowServo.setPosition(Range.clip(elbow_position, ELBOW_MIN_POSITION, ELBOW_MAX_POSITION));
+            elbowServo.setPosition(Range.clip(elbow_position, 0, 1.0));
 
         } else if (elbowOpen) {
 
             elbow_position = elbow_position - 0.2;
-            elbowServo.setPosition(Range.clip(elbow_position, ELBOW_MIN_POSITION, ELBOW_MAX_POSITION));
+            elbowServo.setPosition(Range.clip(elbow_position, 0, 1.0));
         }
 //
 //        telemetry.addData("Elbow position: ", elbow_position);
