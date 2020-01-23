@@ -117,15 +117,30 @@ public class ArmElbowGripperActions {
 //        telemetry.update();
     }
 
-    public void armUpDown_LinearSlide(double armVal) {
+    private double old_joystick_value = 0;
 
-        telemetry.addData("Inside: armUpDown_Linear(): ", "" + System.currentTimeMillis());
-        telemetry.addData("joystick value: ", armVal);
+    // Code modified - 1/22
+    public void armUpDown_LinearSlide(double new_joystick_value) {
 
-        double armPower = Range.clip(armVal, -1, 1);
-        armMotor.setPower(armPower);
+        telemetry.addData("Method: armUpDown_Linear(): ", "" + System.currentTimeMillis());
+        telemetry.addData("new_joystick_value: ", new_joystick_value);
+        telemetry.addData("old_joystick_value: ", old_joystick_value);
 
-        telemetry.addData("Arm power: ", armPower);
+        double slide_power = Range.clip(new_joystick_value, -0.5, 0.5);
+
+
+        if(new_joystick_value < old_joystick_value){
+
+            armMotor.setPower(slide_power * 0.6);  //Going down use 60% of power
+
+        } else {
+
+            armMotor.setPower(slide_power); //Going up use 100% of power
+        }
+
+        old_joystick_value = new_joystick_value;
+
+        telemetry.addData("SLIDE POWER: ", slide_power);
         telemetry.update();
     }
 
