@@ -131,7 +131,7 @@ public class ArmElbowGripperActions {
 
         if(new_joystick_value < old_joystick_value){
 
-            armMotor.setPower(slide_power * 0.6);  //Going down use 60% of power
+            armMotor.setPower(slide_power * 0.1);  //Going down use 60% of power
 
         } else {
 
