@@ -138,25 +138,7 @@ public class DriveWheelActions {
 
     //This methods is meant for AUTONOMOUS
     public void setMotorDirection_Reverse() {
-        left_front.setDirection(MotorConstants.REVERSE);
-        left_back.setDirection(MotorConstants.REVERSE);
-
-        right_front.setDirection(MotorConstants.FORWARD);
-        right_back.setDirection(MotorConstants.FORWARD);
-    }
-
-    //This methods is meant for AUTONOMOUS
-    public void setMotorDirection_StrafeLeft() {
         left_front.setDirection(MotorConstants.FORWARD);
-        left_back.setDirection(MotorConstants.REVERSE);
-
-        right_front.setDirection(MotorConstants.FORWARD);
-        right_back.setDirection(MotorConstants.FORWARD);
-    }
-
-    //This methods is meant for AUTONOMOUS
-    public void setMotorDirection_StrafeRight() {
-        left_front.setDirection(MotorConstants.REVERSE);
         left_back.setDirection(MotorConstants.FORWARD);
 
         right_front.setDirection(MotorConstants.REVERSE);
@@ -164,21 +146,42 @@ public class DriveWheelActions {
     }
 
     //This methods is meant for AUTONOMOUS
-    public void setMotorDirection_SpinLeft() {
+    public void setMotorDirection_StrafeLeft() {
+        left_front.setDirection(MotorConstants.FORWARD);
         left_back.setDirection(MotorConstants.REVERSE);
-        left_front.setDirection(MotorConstants.REVERSE);
 
-        right_back.setDirection(MotorConstants.REVERSE);
+        right_front.setDirection(MotorConstants.REVERSE);
+        right_back.setDirection(MotorConstants.FORWARD);
+    }
+
+    //This methods is meant for AUTONOMOUS - Working
+    public void setMotorDirection_StrafeRight() {
+
+
+        left_front.setDirection(MotorConstants.REVERSE);
+        left_back.setDirection(MotorConstants.FORWARD);
+
         right_front.setDirection(MotorConstants.FORWARD);
+        right_back.setDirection(MotorConstants.REVERSE);
+    }
+
+    //This methods is meant for AUTONOMOUS
+    public void setMotorDirection_SpinLeft() {
+//
+//        left_back.setDirection(MotorConstants.REVERSE);
+//        left_front.setDirection(MotorConstants.REVERSE);
+//
+//        right_back.setDirection(MotorConstants.REVERSE);
+//        right_front.setDirection(MotorConstants.FORWARD);
     }
 
     //This methods is meant for AUTONOMOUS
     public void setMotorDirection_SpinRight() {
-        left_back.setDirection(MotorConstants.REVERSE);
-        left_front.setDirection(MotorConstants.REVERSE);
-
-        right_back.setDirection(MotorConstants.REVERSE);
-        right_front.setDirection(MotorConstants.FORWARD);
+//        left_back.setDirection(MotorConstants.REVERSE);
+//        left_front.setDirection(MotorConstants.REVERSE);
+//
+//        right_back.setDirection(MotorConstants.REVERSE);
+//        right_front.setDirection(MotorConstants.FORWARD);
     }
 
     public void stop() {

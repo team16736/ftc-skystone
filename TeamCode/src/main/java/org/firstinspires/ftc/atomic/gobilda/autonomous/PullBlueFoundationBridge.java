@@ -10,7 +10,6 @@ import org.firstinspires.ftc.atomic.gobilda.actions.HookActions;
  * Purpose: Pull BLUE foundation to the building site
  */
 @Autonomous(name = "Blue Foundation Bridge Pull", group = "GoBilda")
-@Disabled
 public class PullBlueFoundationBridge extends HelperAction {
 
     @Override
@@ -37,7 +36,7 @@ public class PullBlueFoundationBridge extends HelperAction {
 
 
         // Step 4: Drive FORWARD towards building site
-        drive_ForwardAndStop(driveActions, SPEED, 4.0); //SPEED-0.5, added 2.5 driving time
+        drive_ForwardAndStop(driveActions, SPEED-0.2, 5.5); //SPEED-0.5, added 2.5 driving time
         sleep(2000);
 
         // Step 5: Hook move UP to release the foundation
