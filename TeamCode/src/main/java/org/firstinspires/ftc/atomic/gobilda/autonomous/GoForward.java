@@ -26,12 +26,6 @@ public class GoForward extends LinearOpMode {
         driveActions.setMotorDirection_Forward();
         driveActions.driveByTime(this, 0.35, 0.25);//changed
 
-        // Step 1:  Drive Forward for 1 Second
-        driveActions.setMotorDirection_Reverse();
-        driveActions.driveByTime(this, 0.35, 0.25);//changed
-
-
-
         sleep(2000); //wait for 2 seconds
     }
 }

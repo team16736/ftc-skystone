@@ -94,9 +94,7 @@ public class ArmElbowGripperActions {
             grabber_position = 0;
             grabberServo.setPosition(grabber_position);
         }
-//
-//        telemetry.addData("Grabber position: ", grabber_position);
-//        telemetry.update();
+
     }
 
 
@@ -112,10 +110,29 @@ public class ArmElbowGripperActions {
             elbow_position = elbow_position - 0.2;
             elbowServo.setPosition(Range.clip(elbow_position, 0, 1.0));
         }
-//
-//        telemetry.addData("Elbow position: ", elbow_position);
-//        telemetry.update();
+
+        telemetry.addData("Method - ", "elbowOpenClose");
+        telemetry.update();
     }
+
+
+    public void elbow_FullOpen_FullClose(boolean elbowOpen, boolean elbowClose) {
+
+        if (elbowClose) {
+
+            elbow_position = 1.0;
+            elbowServo.setPosition(elbow_position);
+
+        } else if (elbowOpen) {
+
+            elbow_position = 0.0;
+            elbowServo.setPosition(elbow_position);
+        }
+        telemetry.addData("Method - ", "elbow_FullOpen_FullClose");
+        telemetry.update();
+
+    }
+
 
     private double old_joystick_value = 0;
 

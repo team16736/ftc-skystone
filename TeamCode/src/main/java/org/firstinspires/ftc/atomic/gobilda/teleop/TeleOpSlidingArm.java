@@ -1,16 +1,14 @@
 package org.firstinspires.ftc.atomic.gobilda.teleop;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.atomic.gobilda.actions.ArmElbowGripperActions;
+import org.firstinspires.ftc.atomic.gobilda.actions.CapstoneFlipperActions;
 import org.firstinspires.ftc.atomic.gobilda.actions.DriveWheelActions;
 import org.firstinspires.ftc.atomic.gobilda.actions.HookActions;
 import org.firstinspires.ftc.atomic.gobilda.actions.LinearSlideActions;
-import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
+import org.firstinspires.ftc.atomic.gobilda.actions.SensorControlActions;
 
 @TeleOp(name="TeleOp-Sliding-Arm", group="Linear Opmode")
 public class TeleOpSlidingArm extends LinearOpMode {
@@ -18,8 +16,9 @@ public class TeleOpSlidingArm extends LinearOpMode {
     private HookActions hookActions = null;
     private DriveWheelActions driveActions = null;
     private ArmElbowGripperActions armActions = null;
-    private LinearSlideActions slideActions = null;
-
+    private CapstoneFlipperActions flipperActions = null;
+    private SensorControlActions sensorControlActions = null;
+    //private LinearSlideActions slideActions = null;
 
     @Override
     public void runOpMode() {
@@ -27,7 +26,10 @@ public class TeleOpSlidingArm extends LinearOpMode {
         hookActions = new HookActions(telemetry, hardwareMap);
         driveActions = new DriveWheelActions(telemetry, hardwareMap);
         armActions = new ArmElbowGripperActions(telemetry, hardwareMap);
-        slideActions = new LinearSlideActions(telemetry, hardwareMap);
+        flipperActions = new CapstoneFlipperActions(telemetry, hardwareMap);
+        sensorControlActions = new SensorControlActions(telemetry, hardwareMap);
+        //slideActions = new LinearSlideActions(telemetry, hardwareMap);
+
 
         //Set Speed for teleOp. Mecannum wheel speed.
         driveActions.setSpeed(1.0);
@@ -42,12 +44,21 @@ public class TeleOpSlidingArm extends LinearOpMode {
                             -gamepad1.left_stick_y,         //joystick controlling forward/backward
                             gamepad1.right_stick_x);        //joystick controlling rotation
 
+            flipperActions.flipper_Forward_Backward(gamepad1.left_bumper,   //open grabber
+                                                 gamepad1.right_bumper);     //close grabber
+
+            sensorControlActions.isLimitSwitchPressed();
+
             /** Gamepad 2 **/
             hookActions.hookUpDown(gamepad2.dpad_left,          //key to move up hookUpDown
                                     gamepad2.dpad_right);       //key to move down hookUpDown
+//
+//            armActions.elbowOpenClose(gamepad2.dpad_up,         //elbow open
+//                                    gamepad2.dpad_down);        //elbow close
+//
 
-            armActions.elbowOpenClose(gamepad2.dpad_up,         //elbow up
-                                    gamepad2.dpad_down);        //elbow down
+            armActions.elbow_FullOpen_FullClose(gamepad2.dpad_up,  //elbow full open
+                    gamepad2.dpad_down);                           //elbow full close
 
             armActions.grabberOpenClose(gamepad2.left_bumper,   //open grabber
                                     gamepad2.right_bumper);     //close grabber
@@ -57,7 +68,7 @@ public class TeleOpSlidingArm extends LinearOpMode {
             telemetry.update();
         }
 
-        telemetry.addData("AtomicBot", "Stopping");
+        telemetry.addData("STEPHON ", "Stopping");
         telemetry.update();
 
         idle();

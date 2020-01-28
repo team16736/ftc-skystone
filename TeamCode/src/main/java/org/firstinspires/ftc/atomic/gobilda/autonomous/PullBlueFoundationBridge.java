@@ -44,7 +44,7 @@ public class PullBlueFoundationBridge extends HelperAction {
         sleep(2000);
 
         // Step 6: Strafe LEFT
-        strafe_LeftAndStop(driveActions, SPEED, 2.1);
+        strafe_LeftAndStop(driveActions, SPEED, 1.8);
         sleep(2000);
 
 

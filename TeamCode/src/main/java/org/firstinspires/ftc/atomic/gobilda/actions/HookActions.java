@@ -2,7 +2,6 @@ package org.firstinspires.ftc.atomic.gobilda.actions;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -27,9 +26,6 @@ public class HookActions {
 
     private double left_hook_position = 0.0;
     private double right_hook_position = 1.0;
-
-    private double HOOK_MIN_POSITION = 0;
-    private double HOOK_MAX_POSITION = 1.0;
 
     // Constructor
     public HookActions(Telemetry opModeTelemetry, HardwareMap opModeHardware) {

@@ -8,6 +8,7 @@ import org.firstinspires.ftc.atomic.gobilda.actions.DriveWheelActions;
 import org.firstinspires.ftc.atomic.gobilda.utilities.MotorConstants;
 
 @Autonomous(name = "Encoder Test", group = "GoBilda")
+@Disabled
 public class EncoderTest extends LinearOpMode {
 
     @Override

@@ -14,6 +14,10 @@ public class ConfigConstants {
     public static final String SERVO_RIGHT = "right_hook";
 
     //slide
+    public static final String FLIPPER_SERVO = "flipper_servo" +
+            "";
+
+    //slide
     public static final String ARM = "arm";
 
     //Elbow
