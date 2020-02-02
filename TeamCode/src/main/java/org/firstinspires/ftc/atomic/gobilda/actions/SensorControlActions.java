@@ -34,14 +34,14 @@ public class SensorControlActions {
         if (limit_switch.getState()) {
 
             switchPressed = false;
-            telemetry.addData("Digital Touch: ", " NOT Pressed ");
+            //telemetry.addData("Digital Touch: ", " NOT Pressed ");
 
         } else {
 
             switchPressed = true;
-            telemetry.addData("Digital Touch: ", " Pressed");
+            //telemetry.addData("Digital Touch: ", " Pressed");
         }
-        telemetry.update();
+        //telemetry.update();
 
         return switchPressed;
     }

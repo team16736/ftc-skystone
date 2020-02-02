@@ -46,22 +46,22 @@ public class TeleOpSlidingArm extends LinearOpMode {
                             gamepad1.right_stick_x);        //joystick controlling rotation
 
 
-            flipperActions.flipper_Forward_Backward(gamepad1.left_bumper,   //open grabber
-                                                 gamepad1.right_bumper);     //close grabber
+            flipperActions.flipper_Forward_Backward(gamepad1.left_bumper,   //Backward
+                                                 gamepad1.right_bumper);     //Forward
 
-            switchPressed = sensorControlActions.isLimitSwitchPressed();
+//            switchPressed = sensorControlActions.isLimitSwitchPressed();
 
-            if(switchPressed == true){
-
-                //what do you want to do?
-
-                //stop or brake the linear slide
-
-                        //stop_slide();
-                        //brake_slide();
-
-                //Then allow the arm to move up
-            }
+//
+//            if(switchPressed == true){
+//
+//                //what do you want to do?
+//
+//                //stop or brake the linear slide
+//                slideElbowGripperActions.brake_slide();
+//
+//                //Then allow the arm to move up
+//                slideElbowGripperActions.old_joystick_value = slideElbowGripperActions.old_joystick_value + 0.2;
+//            }
 
 
 

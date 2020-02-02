@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.atomic.gobilda.actions;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -23,6 +24,8 @@ public class SlideElbowGripperActions {
     private DcMotor slide_motor;
     private Servo elbow_servo;
     private Servo grabber_servo;
+    private DigitalChannel limit_switch; //Added by James, 1/30/2020
+
 
     private int arm_current_position = 50;
 
@@ -38,11 +41,16 @@ public class SlideElbowGripperActions {
         slide_motor = hardwareMap.get(DcMotor.class, ConfigConstants.ARM);
         elbow_servo = hardwareMap.get(Servo.class, ConfigConstants.ELBOW_SERVO);
         grabber_servo = hardwareMap.get(Servo.class, ConfigConstants.GRABBER_SERVO);
+        limit_switch = hardwareMap.get(DigitalChannel.class, "limit_switch");
+
 
         // 2. Set direction
         slide_motor.setDirection(DcMotor.Direction.REVERSE);
         elbow_servo.setDirection(Servo.Direction.REVERSE);
         grabber_servo.setDirection(Servo.Direction.FORWARD);
+
+        // 3. set the digital channel to input. -- needed for limit_switch
+        limit_switch.setMode(DigitalChannel.Mode.INPUT);
     }
 
     public void armUpDown(boolean armUp, boolean armDown) {
@@ -51,7 +59,7 @@ public class SlideElbowGripperActions {
         arm_current_position = slide_motor.getCurrentPosition();
         telemetry.addData("Arm CURRENT: ", slide_motor.getCurrentPosition() + " Timestamp: " + System.currentTimeMillis());
 
-        if(armUp) {
+        if (armUp) {
 
             arm_current_position = arm_current_position + 10;
 
@@ -62,7 +70,7 @@ public class SlideElbowGripperActions {
 
             telemetry.addData("Arm: ", "UP");
 
-        } else if(armDown) {
+        } else if (armDown) {
 
             arm_current_position = arm_current_position - 10;
 
@@ -134,19 +142,19 @@ public class SlideElbowGripperActions {
     }
 
 
-    private double old_joystick_value = 0;
+    public double old_joystick_value = 0;
 
     // Code modified - 1/22
     public void armUpDown_LinearSlide(double new_joystick_value) {
 
-        telemetry.addData("Method: armUpDown_Linear(): ", "" + System.currentTimeMillis());
-        telemetry.addData("new_joystick_value: ", new_joystick_value);
-        telemetry.addData("old_joystick_value: ", old_joystick_value);
+        telemetry.addData("Method: armUpDown_LinearSlide(): ", "" + System.currentTimeMillis());
+        telemetry.addData("new joystick_value: ", new_joystick_value);
+        telemetry.addData("old joystick_value: ", old_joystick_value);
 
         double slide_power = Range.clip(new_joystick_value, -0.5, 0.5);
 
 
-        if(new_joystick_value < old_joystick_value){
+        if (new_joystick_value < old_joystick_value) {
 
             slide_motor.setPower(slide_power * 0.1);  //Going down use 60% of power
 
@@ -172,5 +180,36 @@ public class SlideElbowGripperActions {
         slide_motor.setZeroPowerBehavior(MotorConstants.BRAKE);
     }
 
+
+    public boolean isLimitSwitchPressed() {
+
+        boolean switchPressed = limit_switch.getState();
+
+        if (switchPressed) {
+
+            telemetry.addData("Digital Touch: ", " NOT Pressed ");
+
+        } else {
+
+            telemetry.addData("Digital Touch: ", " Pressed ");
+
+            // Apply Brakes
+            brake_slide();
+
+            // then move the slide up
+            arm_current_position = arm_current_position - 10;
+
+            slide_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            slide_motor.setTargetPosition(arm_current_position);
+            slide_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            slide_motor.setPower(1.0);
+
+            telemetry.addData("Slide is moved : ", "UP");
+
+        }
+        telemetry.update();
+
+        return switchPressed;
+    }
 
 }
