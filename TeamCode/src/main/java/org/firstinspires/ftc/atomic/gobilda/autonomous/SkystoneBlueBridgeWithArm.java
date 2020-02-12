@@ -9,18 +9,19 @@ import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
 
 /**
  * Purpose:
- * 1. Identify Skystone on Blue Quarry
+ * 1. Identify Skystones on Blue Quarry
  * 2. Deliver to the other side of the Blue bridge
  * 3. Park by the BridgeBlue
- *
+ * <p>
  * Sensors must be attached to one of the I2C ports
  */
-//START AT FIRST HOLE FROM THE RIGHT OF THE FRAME
+//STARTING POINT: Team number display (white pvc) on the left side
+// must be aligned between and 1st the 2nd tile joint
 @Autonomous(name = "Skystone BLUE Bridge With Arm", group = "GoBilda")
-
-
 public class SkystoneBlueBridgeWithArm extends HelperAction {
+
     private ArmElbowGripperActions armActions = null;
+
     @Override
     public void runOpMode() {
 
@@ -34,23 +35,20 @@ public class SkystoneBlueBridgeWithArm extends HelperAction {
         armActions = new ArmElbowGripperActions(telemetry, hardwareMap);
         waitForStart();
 
-
         // Step 1: Lift arm, Open elbow and grabber
         armUpAndStop(armActions, 0.6, 0.3);
         sleep(250);///
         elbowCompletelyOpen(armActions);////
         grabberCompletelyOpen(armActions);////
 
-
         // Step 1.5: Move FORWARD
         driveActions.applySensorSpeed = true;// we have altered the speed for the forwards movement
-        drive_ForwardAndStop(driveActions, SPEED*2, 0.31 );
+        drive_ForwardAndStop(driveActions, SPEED * 2, 0.31);
         sleep(250);
 
-
-        // Step --> detect skystone using sensor
-       foundStone = isThisSkystone(right_sensor, hsvValues);
-
+        // Step --> detect Skystone using left sensor. If yes, then stone 1,4 are the skystones
+        // If a skystone is not detected, then use right sensor. If yes, then stone 2, 5 are the skystones
+        // If a skystone is still not detected, assume stone 3, 6 are the skystones
         StoneColor quarryDetail = identifyQuarryColors(left_sensor, right_sensor, hsvValues);
 
         telemetry.addData("Stone 1 is black: ", "" + quarryDetail.isStone_1());
@@ -62,32 +60,41 @@ public class SkystoneBlueBridgeWithArm extends HelperAction {
         telemetry.update();
 
 
-        //If Block 1 is black
-        //Strafe left
-
         double travel_forward_value;
         double travel_backward_value;
 
-        if ( quarryDetail.isStone_1()){
+        if (quarryDetail.isStone_1()) {
 
+            //Collect and Deliver stone - 1, 4 *************
 
             //Step 1: Strafe Left
-            strafe_LeftAndStop(driveActions, SPEED+.25, 0.23);
+            strafe_LeftAndStop(driveActions, SPEED + .25, 0.23);
 
             travel_forward_value = 0.6;
             travel_backward_value = 1.3;
             collectSkystoneDeliverAndComeBack(driveActions, travel_forward_value, travel_backward_value);
 
             //Step 9: turn RIGHT towards 2nd Skystone
-            spin_RightAndStop(driveActions,SPEED-0.1,1.15);
+            spin_RightAndStop(driveActions, SPEED - 0.1, 1.15);
             sleep(100);
 
             //Step 10: Move Forwards To second Skystone
             drive_ForwardAndStop(driveActions, SPEED, 0.2);
 
+            //Step 11: Repeat collect and deliver again
             travel_forward_value = 1.2;
             travel_backward_value = 0.35;
             collectSkystoneDeliverAndComeBack(driveActions, travel_forward_value, travel_backward_value);
+
+        } else if (quarryDetail.isStone_2()) {
+
+            //Collect and Deliver stone - 2, 5 *************
+
+
+        } else {
+
+            //Collect and Deliver stone - 3, 6 *************
+
         }
 
         //Turn OFF the sensor LED
@@ -121,13 +128,13 @@ public class SkystoneBlueBridgeWithArm extends HelperAction {
         sleep(100);
 
         //Step 6: drive FORWARD towards the bridge
-        drive_ForwardAndStop(driveActions, SPEED+0.5, travel_forward_value);
+        drive_ForwardAndStop(driveActions, SPEED + 0.5, travel_forward_value);
 
         //Step 7: let go of block
         grabberCompletelyOpen(armActions);
 
         //Step 8: drive BACKWARDS to be by 2nd Skystone
-        drive_ReverseAndStop(driveActions, SPEED+0.5, travel_backward_value);
+        drive_ReverseAndStop(driveActions, SPEED + 0.5, travel_backward_value);
         sleep(100);
     }
 
