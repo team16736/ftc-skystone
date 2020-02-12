@@ -125,7 +125,7 @@ public class DriveWheelActions {
         return Collections.max(valueList);
     }
 
-    //This methods is meant for AUTONOMOUS - Working
+    //This methods is meant for AUTONOMOUS
     public void setMotorDirection_Forward() {
         left_front.setDirection(MotorConstants.REVERSE);
         left_back.setDirection(MotorConstants.REVERSE);
@@ -134,7 +134,7 @@ public class DriveWheelActions {
         right_back.setDirection(MotorConstants.FORWARD);
     }
 
-    //This methods is meant for AUTONOMOUS - Working
+    //This methods is meant for AUTONOMOUS
     public void setMotorDirection_Reverse() {
         left_front.setDirection(MotorConstants.FORWARD);
         left_back.setDirection(MotorConstants.FORWARD);
@@ -143,7 +143,7 @@ public class DriveWheelActions {
         right_back.setDirection(MotorConstants.REVERSE);
     }
 
-    //This methods is meant for AUTONOMOUS - Working
+    //This methods is meant for AUTONOMOUS
     public void setMotorDirection_StrafeLeft() {
         left_front.setDirection(MotorConstants.FORWARD);
         left_back.setDirection(MotorConstants.REVERSE);
@@ -162,22 +162,22 @@ public class DriveWheelActions {
         right_back.setDirection(MotorConstants.REVERSE);
     }
 
-    //This methods is meant for AUTONOMOUS - not working ***
+    //This methods is meant for AUTONOMOUS
     public void setMotorDirection_SpinLeft() {
         left_front.setDirection(MotorConstants.FORWARD);
         left_back.setDirection(MotorConstants.FORWARD);
 
-        right_front.setDirection(MotorConstants.REVERSE);
-        right_back.setDirection(MotorConstants.REVERSE);
+        right_front.setDirection(MotorConstants.FORWARD);
+        right_back.setDirection(MotorConstants.FORWARD);
     }
 
-    //This methods is meant for AUTONOMOUS - not working ***
+    //This methods is meant for AUTONOMOUS
    public void setMotorDirection_SpinRight() {
         left_back.setDirection(MotorConstants.REVERSE);
         left_front.setDirection(MotorConstants.REVERSE);
 
         right_back.setDirection(MotorConstants.REVERSE);
-        right_front.setDirection(MotorConstants.FORWARD);
+        right_front.setDirection(MotorConstants.REVERSE);
     }
 
     public void stop() {
@@ -211,6 +211,7 @@ public class DriveWheelActions {
 
         opMode.sleep((long)(1000 * drivingTime)); //Make the opMode wait - while it is driving
     }
+
 
 
     /**

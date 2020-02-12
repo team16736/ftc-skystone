@@ -29,19 +29,18 @@ public class SensorControlActions {
 
     public boolean isLimitSwitchPressed(){
 
-        boolean switchPressed;
+        boolean switchPressed = limit_switch.getState();
 
-        if (limit_switch.getState()) {
+        if (switchPressed) {
 
-            switchPressed = false;
-            //telemetry.addData("Digital Touch: ", " NOT Pressed ");
+            telemetry.addData("Digital Touch: ", " NOT Pressed ");
 
         } else {
 
-            switchPressed = true;
-            //telemetry.addData("Digital Touch: ", " Pressed");
+            telemetry.addData("Digital Touch: ", " Pressed");
+
         }
-        //telemetry.update();
+        telemetry.update();
 
         return switchPressed;
     }

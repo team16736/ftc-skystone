@@ -14,7 +14,8 @@ public class ConfigConstants {
     public static final String SERVO_RIGHT = "right_hook";
 
     //slide
-    public static final String FLIPPER_SERVO = "flipper_servo";
+    public static final String FLIPPER_SERVO = "flipper_servo" +
+            "";
 
     //slide
     public static final String ARM = "arm";
@@ -28,6 +29,9 @@ public class ConfigConstants {
     //Color Sensors
     public static final String RIGHT_COLOR = "right_color";
     public static final String LEFT_COLOR = "left_color";
+
+    //Touch Sensor
+    public static final String TOUCH_SENSOR = "touch_sensor";
 
 
 }
