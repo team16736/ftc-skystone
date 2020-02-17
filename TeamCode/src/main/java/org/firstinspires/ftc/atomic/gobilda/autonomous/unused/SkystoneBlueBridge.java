@@ -1,10 +1,11 @@
-package org.firstinspires.ftc.atomic.gobilda.autonomous;
+package org.firstinspires.ftc.atomic.gobilda.autonomous.unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.atomic.gobilda.actions.DriveWheelActions;
+import org.firstinspires.ftc.atomic.gobilda.autonomous.HelperAction;
 import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
 
 /**
@@ -16,10 +17,10 @@ import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
  * Sensors must be attached to one of the I2C ports
  */
 //START AT FIRST HOLE FROM THE RIGHT OF THE FRAME
-@Autonomous(name = "Skystone BLUE Wall", group = "GoBilda")
+@Autonomous(name = "Skystone BLUE Bridge", group = "GoBilda")
 @Disabled
 
-public class SkystoneBlueWall extends HelperAction {
+public class SkystoneBlueBridge extends HelperAction {
 
     @Override
     public void runOpMode() {
@@ -36,7 +37,7 @@ public class SkystoneBlueWall extends HelperAction {
         // Step 1: Move FORWARD
         driveActions.applySensorSpeed = true;// we have altered the speed for the forwards movement
         drive_ForwardAndStop(driveActions, SPEED, 1.2);
-        sleep(1000);
+        sleep(3000);
 
         // Step --> detect skystone using sensor
         foundStone = isThisSkystone(right_sensor, hsvValues);
@@ -48,13 +49,13 @@ public class SkystoneBlueWall extends HelperAction {
             telemetry.addData("Found black block: ", "1");
             telemetry.update();
 
-            sleep(1000);
+            sleep(3000);
             collectStoneAndDeliverBlueSide(driveActions, 2.0);
 
         } else {
 
             strafe_RightAndStop(driveActions, SPEED, 0.4);
-            sleep(1000);
+            sleep(3000);
             foundStone = isThisSkystone(right_sensor, hsvValues);
 
             if (foundStone) {
@@ -62,7 +63,7 @@ public class SkystoneBlueWall extends HelperAction {
                 telemetry.addData("Found black block: ", "2");
                 telemetry.update();
 
-                sleep(2000);
+                sleep(3000);
                 collectStoneAndDeliverBlueSide(driveActions, 2.7);
 
             } else {
@@ -71,13 +72,13 @@ public class SkystoneBlueWall extends HelperAction {
                 telemetry.update();
 
                 strafe_RightAndStop(driveActions, SPEED, 0.4);
-                sleep(2000);
+                sleep(3000);
                 collectStoneAndDeliverBlueSide(driveActions, 3.0);
             }
         }
 
-        //Step 9: Move backwards to park under bridge
-        drive_ReverseAndStop(driveActions, SPEED, 1.0);
+        //Step8: Move backwards to park under bridge
+        drive_ReverseAndStop(driveActions, SPEED, 0.7);
         foundStone = false;
         sleep(1000);
 
@@ -97,12 +98,12 @@ public class SkystoneBlueWall extends HelperAction {
     private void collectStoneAndDeliverBlueSide(DriveWheelActions wheelActions, double distance) {
 
         //Step 2: if detect black block; Strafe RIGHT
-        strafe_RightAndStop(wheelActions, SPEED, 0.3);//changed
+        strafe_RightAndStop(wheelActions,SPEED,0.3);//changed
         sleep(1000);
 
         //Step 3: Move FORWARD
         drive_ForwardAndStop(wheelActions, SPEED, 0.6);
-        sleep(1000);
+        sleep(2000);
 
         //Step 4: Spin LEFT
         wheelActions.setMotorDirection_SpinLeft();
@@ -118,13 +119,7 @@ public class SkystoneBlueWall extends HelperAction {
         wheelActions.driveByTime(this, 0.3, 0.1);
         sleep(2000);
 
-
-        //Step7: strafe left and hit the wall //////////////////////////
-        strafe_LeftAndStop(wheelActions, SPEED, 1.5);
-        sleep(1000);
-
-
-        // Step8: Move FORWARD and deliver to the other side of the bridge
+        // Step 7: Move FORWARD and deliver to the other side of the bridge
         drive_ForwardAndStop(wheelActions, SPEED, distance);
         sleep(1000);
     }

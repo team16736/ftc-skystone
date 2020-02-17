@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.atomic.gobilda.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.atomic.gobilda.actions.ArmElbowGripperActions;
@@ -17,10 +18,12 @@ import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
  */
 //STARTING POINT: Team number display (white pvc) on the left side
 // must be aligned between and 1st the 2nd tile joint
-@Autonomous(name = "Skystone BLUE Bridge", group = "GoBilda")
-public class SkystoneBlueBridgeWithArm extends HelperAction {
+@Autonomous(name = "Skystone BLUE Wall", group = "GoBilda")
+public class SkystoneBlueWallWithArm extends HelperAction {
 
     private ArmElbowGripperActions armActions = null;
+
+    private boolean myFirstStoneWasDelivered = false;
 
     @Override
     public void runOpMode() {
@@ -79,6 +82,9 @@ public class SkystoneBlueBridgeWithArm extends HelperAction {
             travel_backward_value = 1.3;
             collectSkystoneDeliverAndComeBack(driveActions, quarryDetail, travel_forward_value, travel_backward_value);
 
+            //Indicate if my 1st stone was delivered
+            myFirstStoneWasDelivered = true;
+
             //Step 9: turn RIGHT towards 2nd Skystone
             spin_RightAndStop(driveActions, SPEED - 0.1, 1.11);
             sleep(100);
@@ -103,6 +109,9 @@ public class SkystoneBlueBridgeWithArm extends HelperAction {
             travel_forward_value = 0.7;
             travel_backward_value = 1.4;
             collectSkystoneDeliverAndComeBack(driveActions, quarryDetail, travel_forward_value, travel_backward_value);
+
+            //Indicate if my 1st stone was delivered
+            myFirstStoneWasDelivered = true;
 
             //Step 8: turn RIGHT towards 2nd Skystone
             spin_RightAndStop(driveActions, SPEED - 0.1, 1.15);
@@ -132,6 +141,9 @@ public class SkystoneBlueBridgeWithArm extends HelperAction {
             //Step 0.5: Strafe Right
             strafe_RightAndStop(driveActions, SPEED + .25, 0.25);
             collectSkystoneDeliverAndComeBack(driveActions, quarryDetail, travel_forward_value, travel_backward_value);
+
+            //Indicate if my 1st stone was delivered
+            myFirstStoneWasDelivered = true;
 
             //Step 1: turn RIGHT towards 2nd Skystone
             spin_RightAndStop(driveActions, SPEED - 0.1, 1.15);
@@ -192,6 +204,14 @@ public class SkystoneBlueBridgeWithArm extends HelperAction {
         }else{
             spin_LeftAndStop(driveActions, SPEED, 0.94);
             sleep(100);
+        }
+
+        if(myFirstStoneWasDelivered){
+
+            if(quarryDetail.isStone_4()|| quarryDetail.isStone_5() || quarryDetail.isStone_6()){
+
+                strafe_LeftAndStop(driveActions, SPEED, 0.75);
+            }
         }
 
         //Step 6: drive FORWARD towards the bridge

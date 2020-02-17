@@ -32,7 +32,7 @@ public class ArmElbowGripperActions {
     private double grabber_position = 0.0;
     private double elbow_position = 0.0;
 
-    private DigitalChannel limit_switch;
+    //private DigitalChannel limit_switch;
     DigitalChannel digitalTouch;
 
 
@@ -45,7 +45,7 @@ public class ArmElbowGripperActions {
         armMotor = hardwareMap.get(DcMotor.class, ConfigConstants.ARM);
         elbowServo = hardwareMap.get(Servo.class, ConfigConstants.ELBOW_SERVO);
         grabberServo = hardwareMap.get(Servo.class, ConfigConstants.GRABBER_SERVO);
-        limit_switch = hardwareMap.get(DigitalChannel.class, "limit_switch");
+        //limit_switch = hardwareMap.get(DigitalChannel.class, "limit_switch");
 
 
         // 2. Set direction
@@ -53,31 +53,33 @@ public class ArmElbowGripperActions {
         elbowServo.setDirection(Servo.Direction.REVERSE);
         grabberServo.setDirection(Servo.Direction.FORWARD);
     }
-    public boolean isLimitSwitchPressed(){
 
-        boolean switchPressed = limit_switch.getState();
-
-        if (switchPressed) {
-
-            telemetry.addData("Digital Touch: ", " NOT Pressed different");
-
-        } else {
-
-            telemetry.addData("Digital Touch: ", " Pressed different");
-            arm_current_position = arm_current_position - 10;
-
-            armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            armMotor.setTargetPosition(arm_current_position);
-            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setPower(1.0);
-
-            telemetry.addData("Arm: ", "UP");
-
-        }
-        telemetry.update();
-
-        return switchPressed;
-    }
+//    public boolean isLimitSwitchPressed(){
+//
+//        boolean switchPressed = limit_switch.getState();
+//
+//        if (switchPressed) {
+//
+//            telemetry.addData("Digital Touch: ", " NOT Pressed different");
+//
+//        } else {
+//
+//            telemetry.addData("Digital Touch: ", " Pressed different");
+//            arm_current_position = arm_current_position - 10;
+//
+//            armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//            armMotor.setTargetPosition(arm_current_position);
+//            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            armMotor.setPower(1.0);
+//
+//            telemetry.addData("Arm: ", "UP");
+//
+//        }
+//        telemetry.update();
+//
+//        return switchPressed;
+//    }
+//
     public void armUpDown(boolean armUp, boolean armDown) {
 
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

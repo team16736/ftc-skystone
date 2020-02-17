@@ -17,7 +17,7 @@ public class TeleOpSlidingArm extends LinearOpMode {
     private DriveWheelActions driveActions = null;
     private ArmElbowGripperActions armActions = null;
     private CapstoneFlipperActions flipperActions = null;
-    private SensorControlActions sensorControlActions = null;
+   // private SensorControlActions sensorControlActions = null;
     //private LinearSlideActions slideActions = null;
 
     @Override
@@ -27,7 +27,8 @@ public class TeleOpSlidingArm extends LinearOpMode {
         driveActions = new DriveWheelActions(telemetry, hardwareMap);
         armActions = new ArmElbowGripperActions(telemetry, hardwareMap);
         flipperActions = new CapstoneFlipperActions(telemetry, hardwareMap);
-        sensorControlActions = new SensorControlActions(telemetry, hardwareMap);
+
+        //sensorControlActions = new SensorControlActions(telemetry, hardwareMap);
         //slideActions = new LinearSlideActions(telemetry, hardwareMap);
 
 
@@ -47,7 +48,7 @@ public class TeleOpSlidingArm extends LinearOpMode {
             flipperActions.flipper_Forward_Backward(gamepad1.left_bumper,   //open grabber
                                                  gamepad1.right_bumper);     //close grabber
 
-            sensorControlActions.isLimitSwitchPressed();
+            //sensorControlActions.isLimitSwitchPressed();
 
             /** Gamepad 2 **/
             hookActions.hookUpDown(gamepad2.dpad_left,          //key to move up hookUpDown
@@ -65,7 +66,7 @@ public class TeleOpSlidingArm extends LinearOpMode {
 
             armActions.armUpDown_LinearSlide(gamepad2.left_stick_y);     //arm up/down uses Linear Slide
 
-            armActions.isLimitSwitchPressed();
+            //armActions.isLimitSwitchPressed();
 
             telemetry.update();
         }

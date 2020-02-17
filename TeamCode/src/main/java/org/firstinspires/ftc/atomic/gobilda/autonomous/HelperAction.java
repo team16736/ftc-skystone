@@ -43,6 +43,11 @@ public abstract class HelperAction extends LinearOpMode {
         driveWheelActions.setMotorDirection_StrafeLeft();
         driveWheelActions.driveByTime(this, speed, drivingTime);
         driveWheelActions.stop();
+
+
+        telemetry.addData("strafe_LeftAndStop: ", "-->strafe_LeftAndStop");
+        telemetry.update();
+
     }
     public void spin_LeftAndStop(DriveWheelActions driveWheelActions, double speed, double drivingTime) {
         driveWheelActions.setMotorDirection_SpinLeft();
@@ -116,7 +121,7 @@ public abstract class HelperAction extends LinearOpMode {
             quarry.setStone_1(true);
             quarry.setStone_4(true);
         }
-        else if ( right_sensor_result){
+        else if (right_sensor_result){
 
            quarry.setStone_2(true);
            quarry.setStone_5(true);
@@ -126,6 +131,15 @@ public abstract class HelperAction extends LinearOpMode {
             quarry.setStone_3(true);
             quarry.setStone_6(true);
         }
+
+
+        //Making 2, 5
+//        quarry.setStone_1(false);
+//        quarry.setStone_2(true);
+//        quarry.setStone_3(false);
+//        quarry.setStone_4(false);
+//        quarry.setStone_5(true);
+//        quarry.setStone_6(false);
 
         return quarry;
     }
