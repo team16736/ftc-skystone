@@ -13,7 +13,7 @@ public class CapstoneFlipperActions {
 
     public Servo flipper_hand;
 
-    private double flipper_hand_position = 1.0;
+    private double flipper_hand_position = 0.5;
 
     // Constructor
     public CapstoneFlipperActions(Telemetry opModeTelemetry, HardwareMap opModeHardware) {
@@ -34,12 +34,12 @@ public class CapstoneFlipperActions {
 
     public void flipper_Forward_Backward(boolean forward, boolean backward) {
 
-        if (forward) {  //forward
+        if (forward) {  //forward move arm inwards (towards the linear slide)
 
-            flipper_hand_position = 1.0;
+            flipper_hand_position = 0.5;
             telemetry.addData("Left Hook - DOWN Position x: ", flipper_hand_position);
 
-        } else if (backward) {  //backward
+        } else if (backward) {  //backward moves arm outwards (taps the skystone)
 
             flipper_hand_position = 0;
             telemetry.addData("Left Hook - UP Position y: ", flipper_hand_position);

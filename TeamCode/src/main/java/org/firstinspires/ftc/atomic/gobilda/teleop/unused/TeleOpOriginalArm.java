@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.atomic.gobilda.actions.ArmElbowGripperActions;
 import org.firstinspires.ftc.atomic.gobilda.actions.DriveWheelActions;
 import org.firstinspires.ftc.atomic.gobilda.actions.HookActions;
-import org.firstinspires.ftc.atomic.gobilda.actions.SlideElbowGripperActions;
 import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
 
 @TeleOp(name="TeleOp-Original-Arm", group="Linear Opmode")
@@ -17,7 +17,7 @@ public class TeleOpOriginalArm extends LinearOpMode {
 
     private HookActions hookActions = null;
     private DriveWheelActions driveActions = null;
-    private SlideElbowGripperActions armActions = null;
+    private ArmElbowGripperActions armActions = null;
 
     private DcMotor armDrive = null;
     private Servo elbowServo = null;
@@ -29,7 +29,7 @@ public class TeleOpOriginalArm extends LinearOpMode {
 
         hookActions = new HookActions(telemetry, hardwareMap);
         driveActions = new DriveWheelActions(telemetry, hardwareMap);
-        armActions = new SlideElbowGripperActions(telemetry, hardwareMap);
+        armActions = new ArmElbowGripperActions(telemetry, hardwareMap);
 
         armDrive  = hardwareMap.get(DcMotor.class, ConfigConstants.ARM);
         elbowServo = hardwareMap.get(Servo.class, ConfigConstants.ELBOW_SERVO);

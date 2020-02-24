@@ -28,9 +28,6 @@ public class TeleOpSlidingArm extends LinearOpMode {
         armActions = new ArmElbowGripperActions(telemetry, hardwareMap);
         flipperActions = new CapstoneFlipperActions(telemetry, hardwareMap);
 
-        //sensorControlActions = new SensorControlActions(telemetry, hardwareMap);
-        //slideActions = new LinearSlideActions(telemetry, hardwareMap);
-
 
         //Set Speed for teleOp. Mecannum wheel speed.
         driveActions.setSpeed(1.0);
@@ -53,10 +50,10 @@ public class TeleOpSlidingArm extends LinearOpMode {
             /** Gamepad 2 **/
             hookActions.hookUpDown(gamepad2.dpad_left,          //key to move up hookUpDown
                                     gamepad2.dpad_right);       //key to move down hookUpDown
-//
+
 //            armActions.elbowOpenClose(gamepad2.dpad_up,         //elbow open
 //                                    gamepad2.dpad_down);        //elbow close
-//
+
 
             armActions.elbow_FullOpen_FullClose(gamepad2.dpad_up,  //elbow full open
                     gamepad2.dpad_down);                           //elbow full close

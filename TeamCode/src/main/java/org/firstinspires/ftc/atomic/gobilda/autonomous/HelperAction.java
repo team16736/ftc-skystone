@@ -4,7 +4,6 @@ import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.atomic.gobilda.actions.DriveWheelActions;
 import org.firstinspires.ftc.atomic.gobilda.actions.ArmElbowGripperActions;
@@ -105,12 +104,12 @@ public abstract class HelperAction extends LinearOpMode {
     }
 
 
-    public StoneColor identifyQuarryColors(ColorSensor left_color_sensor,
-                                        ColorSensor right_color_sensor,
-                                        float hsvValues[])
+    public StoneColors identifyQuarryColors(ColorSensor left_color_sensor,
+                                            ColorSensor right_color_sensor,
+                                            float hsvValues[])
     {
 
-        StoneColor quarry = new StoneColor();
+        StoneColors stoneColors = new StoneColors();
        // Step 1: check the left_sensor
 
         boolean left_sensor_result = isThisSkystone(left_color_sensor, hsvValues);
@@ -118,18 +117,18 @@ public abstract class HelperAction extends LinearOpMode {
 
         if(left_sensor_result){
 
-            quarry.setStone_1(true);
-            quarry.setStone_4(true);
+            stoneColors.setStone_1(true);
+            stoneColors.setStone_4(true);
         }
         else if (right_sensor_result){
 
-           quarry.setStone_2(true);
-           quarry.setStone_5(true);
+           stoneColors.setStone_2(true);
+           stoneColors.setStone_5(true);
 
         } else{
 
-            quarry.setStone_3(true);
-            quarry.setStone_6(true);
+            stoneColors.setStone_3(true);
+            stoneColors.setStone_6(true);
         }
 
 
@@ -141,6 +140,6 @@ public abstract class HelperAction extends LinearOpMode {
 //        quarry.setStone_5(true);
 //        quarry.setStone_6(false);
 
-        return quarry;
+        return stoneColors;
     }
 }

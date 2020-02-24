@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.atomic.gobilda.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.atomic.gobilda.actions.ArmElbowGripperActions;
@@ -53,21 +52,21 @@ public class SkystoneBlueWallWithArm extends HelperAction {
         // Step --> detect Skystone using left sensor. If yes, then stone 1,4 are the skystones
         // If a skystone is not detected, then use right sensor. If yes, then stone 2, 5 are the skystones
         // If a skystone is still not detected, assume stone 3, 6 are the skystones
-        StoneColor quarryDetail = identifyQuarryColors(left_sensor, right_sensor, hsvValues);
+        StoneColors stoneColors = identifyQuarryColors(left_sensor, right_sensor, hsvValues);
 
-        telemetry.addData("Stone 1 IS BLACK: ", "" + quarryDetail.isStone_1());
-        telemetry.addData("Stone 2 IS BLACK: ", "" + quarryDetail.isStone_2());
-        telemetry.addData("Stone 3 IS BLACK: ", "" + quarryDetail.isStone_3());
-        telemetry.addData("Stone 4 IS BLACK: ", "" + quarryDetail.isStone_4());
-        telemetry.addData("Stone 5 IS BLACK: ", "" + quarryDetail.isStone_5());
-        telemetry.addData("Stone 6 IS BLACK: ", "" + quarryDetail.isStone_6());
+        telemetry.addData("Stone 1 IS BLACK: ", "" + stoneColors.isStone_1());
+        telemetry.addData("Stone 2 IS BLACK: ", "" + stoneColors.isStone_2());
+        telemetry.addData("Stone 3 IS BLACK: ", "" + stoneColors.isStone_3());
+        telemetry.addData("Stone 4 IS BLACK: ", "" + stoneColors.isStone_4());
+        telemetry.addData("Stone 5 IS BLACK: ", "" + stoneColors.isStone_5());
+        telemetry.addData("Stone 6 IS BLACK: ", "" + stoneColors.isStone_6());
         telemetry.update();
         sleep(3000);
 
         double travel_forward_value;
         double travel_backward_value;
 
-        if (quarryDetail.isStone_1()) {
+        if (stoneColors.isStone_1()) {
 
             //Collect and Deliver stone - 1, 4 *************
 
@@ -80,7 +79,7 @@ public class SkystoneBlueWallWithArm extends HelperAction {
 
             travel_forward_value = 0.6;
             travel_backward_value = 1.3;
-            collectSkystoneDeliverAndComeBack(driveActions, quarryDetail, travel_forward_value, travel_backward_value);
+            collectSkystoneDeliverAndComeBack(driveActions, stoneColors, travel_forward_value, travel_backward_value);
 
             //Indicate if my 1st stone was delivered
             myFirstStoneWasDelivered = true;
@@ -95,10 +94,10 @@ public class SkystoneBlueWallWithArm extends HelperAction {
             //Step 11: Repeat collect and deliver again
             travel_forward_value = 1.2;
             travel_backward_value = 0.35;
-            collectSkystoneDeliverAndComeBack(driveActions, quarryDetail, travel_forward_value, travel_backward_value);
+            collectSkystoneDeliverAndComeBack(driveActions, stoneColors, travel_forward_value, travel_backward_value);
 
         }
-        else if (quarryDetail.isStone_2()) {
+        else if (stoneColors.isStone_2()) {
 
             //Collect and Deliver stone - 2, 5 *************
 
@@ -108,7 +107,7 @@ public class SkystoneBlueWallWithArm extends HelperAction {
 
             travel_forward_value = 0.7;
             travel_backward_value = 1.4;
-            collectSkystoneDeliverAndComeBack(driveActions, quarryDetail, travel_forward_value, travel_backward_value);
+            collectSkystoneDeliverAndComeBack(driveActions, stoneColors, travel_forward_value, travel_backward_value);
 
             //Indicate if my 1st stone was delivered
             myFirstStoneWasDelivered = true;
@@ -124,7 +123,7 @@ public class SkystoneBlueWallWithArm extends HelperAction {
             //Step 10: Repeat collect and deliver again
             travel_forward_value = 1.2;
             travel_backward_value = 0.2;
-            collectSkystoneDeliverAndComeBack(driveActions, quarryDetail, travel_forward_value, travel_backward_value);
+            collectSkystoneDeliverAndComeBack(driveActions, stoneColors, travel_forward_value, travel_backward_value);
 
         }
         else {
@@ -140,7 +139,7 @@ public class SkystoneBlueWallWithArm extends HelperAction {
 
             //Step 0.5: Strafe Right
             strafe_RightAndStop(driveActions, SPEED + .25, 0.25);
-            collectSkystoneDeliverAndComeBack(driveActions, quarryDetail, travel_forward_value, travel_backward_value);
+            collectSkystoneDeliverAndComeBack(driveActions, stoneColors, travel_forward_value, travel_backward_value);
 
             //Indicate if my 1st stone was delivered
             myFirstStoneWasDelivered = true;
@@ -165,7 +164,7 @@ public class SkystoneBlueWallWithArm extends HelperAction {
             //Step 10: Repeat collect and deliver again
             travel_forward_value = 1.5;
             travel_backward_value = 0.45;
-            collectSkystoneDeliverAndComeBack(driveActions, quarryDetail, travel_forward_value, travel_backward_value);
+            collectSkystoneDeliverAndComeBack(driveActions, stoneColors, travel_forward_value, travel_backward_value);
 
         }
 
@@ -180,7 +179,7 @@ public class SkystoneBlueWallWithArm extends HelperAction {
     }
 
     private void collectSkystoneDeliverAndComeBack(DriveWheelActions driveActions,
-                                                   StoneColor quarryDetail,
+                                                   StoneColors quarryDetail,
                                                    double travel_forward_value,
                                                    double travel_backward_value) {
 

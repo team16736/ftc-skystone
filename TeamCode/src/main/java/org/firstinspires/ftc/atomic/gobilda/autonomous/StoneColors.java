@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.atomic.gobilda.autonomous;
 
-public class StoneColor {
+public class StoneColors {
 
     public boolean stone_1 = false;
     public boolean stone_2 = false;
