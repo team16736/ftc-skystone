@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.atomic.gobilda.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
  * Purpose: Pull RED foundation to the building site
  */
 @Autonomous(name = "Concept Testing James", group = "GoBilda")
+@Disabled
 public class ConceptTesting extends HelperAction {
     private ArmElbowGripperActions armActions = null;
 

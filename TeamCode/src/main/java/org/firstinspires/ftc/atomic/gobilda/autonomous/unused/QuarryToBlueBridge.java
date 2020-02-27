@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.atomic.gobilda.autonomous;
+package org.firstinspires.ftc.atomic.gobilda.autonomous.unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -13,6 +13,7 @@ import org.firstinspires.ftc.atomic.gobilda.actions.DriveWheelActions;
  * Strafe LEFT under bridge
  */
 @Autonomous(name = "Blue-Quarry To Bridge", group = "GoBilda")
+@Disabled
 
 //PLACE ROBOT FORWARD FACING BLUE QUARRY. ALIGHT WITH 2nd TILE ON BRIDGE SIDE.
 public class QuarryToBlueBridge extends LinearOpMode {

@@ -12,8 +12,6 @@ public class SensorControlActions {
     private Telemetry telemetry;
     private HardwareMap hardwareMap;
 
-
-    // Constructor
     public SensorControlActions(Telemetry opModeTelemetry, HardwareMap opModeHardware ) {
 
         this.telemetry = opModeTelemetry;

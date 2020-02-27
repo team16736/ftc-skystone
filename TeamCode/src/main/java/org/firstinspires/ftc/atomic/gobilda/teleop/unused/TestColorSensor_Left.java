@@ -15,9 +15,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@TeleOp(name = "Test Color and Distance", group = "Sensor")
-@Disabled
-public class TestColorSensor extends LinearOpMode {
+@TeleOp(name = "Narwhals - Left Color", group = "Sensor")
+public class TestColorSensor_Left extends LinearOpMode {
 
   ColorSensor colorSensor;
   DistanceSensor distanceSensor;
