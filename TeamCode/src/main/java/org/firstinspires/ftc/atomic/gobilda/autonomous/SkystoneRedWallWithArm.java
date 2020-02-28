@@ -11,14 +11,17 @@ import org.firstinspires.ftc.atomic.gobilda.utilities.ConfigConstants;
  * Purpose:
  * 1. Identify Skystone/s on RED Quarry
  * 2. Deliver to the other side of the RED bridge
- * 3. Park by Bridge
+ * 3. Park by Wall
  *
  * Sensors must be attached to one of the I2C ports #######
  */
-@Autonomous(name = "Skystones RED Bridge", group = "Narwhals")
-public class SkystoneRedBridgeWithArm extends HelperAction {
+@Autonomous(name = "Skystones RED Wall", group = "Narwhals")
+public class SkystoneRedWallWithArm extends HelperAction {
 
     private ArmElbowGripperActions armActions = null;
+
+    private boolean myFirstStoneWasDelivered = false;
+
 
     @Override
     public void runOpMode() {
@@ -45,11 +48,9 @@ public class SkystoneRedBridgeWithArm extends HelperAction {
         drive_ForwardAndStop(driveActions, 1.0 , .31);
         sleep(3000);
 
-
         // Step 1.6: identify color of all stones in RED quarry
         StoneColors stoneColors = identify_Red_Quarry_Colors(left_sensor, right_sensor, hsvValues);
         sleep(500); //Long wait to see the telemetry on phone -- REMOVE this before competition
-
 
         //Step 0: drive BACKWARDS to be by 2nd Skystone
         drive_ReverseAndStop(driveActions, SPEED-0.2 , 0.1);
@@ -63,22 +64,24 @@ public class SkystoneRedBridgeWithArm extends HelperAction {
             //Collect and Deliver stone - 1, 4 *************
 
             //Step:0
-            strafe_RightAndStop(driveActions,SPEED,0.15);
+            strafe_RightAndStop(driveActions,SPEED,0.12);
 
-            travel_forward_value = 0.75;
+            travel_forward_value = 0.625;
             travel_backward_value = 1.4;
             collect_Skystone_Deliver_And_Return(driveActions, stoneColors, travel_forward_value, travel_backward_value);
 
+            myFirstStoneWasDelivered = true;
+
             //Step 9: turn Left towards 2nd Skystone
-            spin_LeftAndStop(driveActions, SPEED - 0.1, 1.11);
+            spin_LeftAndStop(driveActions, SPEED - 0.1, 1.15);
             sleep(100);
 
             //Step 10: Move Forwards To second Skystone
             drive_ForwardAndStop(driveActions, SPEED, 0.3);
 
             //Step 11: Repeat collect and deliver again
-            travel_forward_value = 1.2;
-            travel_backward_value = 0.15;
+            travel_forward_value = 1.35;
+            travel_backward_value = 0.3;
             collect_Skystone_Deliver_And_Return(driveActions, stoneColors, travel_forward_value, travel_backward_value);
 
         }
@@ -86,16 +89,14 @@ public class SkystoneRedBridgeWithArm extends HelperAction {
 
             //Collect and Deliver stone - 2, 5 *************
 
-            //Step 0: drive BACKWARDS to be by 2nd Skystone
-           // drive_ReverseAndStop(driveActions, SPEED , 0.03);
-           // sleep(100);
-
             //Step 1: Strafe Left//
             strafe_LeftAndStop(driveActions, SPEED , 0.25);
 
             travel_forward_value = 1.0;
             travel_backward_value = 1.7;
             collect_Skystone_Deliver_And_Return(driveActions, stoneColors, travel_forward_value, travel_backward_value);
+
+            myFirstStoneWasDelivered = true;
 
             //Step 8: turn LEFT towards 2nd Skystone
             spin_LeftAndStop(driveActions, SPEED - 0.1, 1.15);
@@ -118,14 +119,12 @@ public class SkystoneRedBridgeWithArm extends HelperAction {
             travel_forward_value = 1.15;
             travel_backward_value = 1.6;
 
-            //Step 0: drive BACKWARDS to be by 2nd Skystone
-           // drive_ReverseAndStop(driveActions, SPEED , 0.03);
-            //sleep(100);
-
             //Step 0.5: Strafe Left
             strafe_LeftAndStop(driveActions, SPEED + .25, .425);
 
             collect_Skystone_Deliver_And_Return(driveActions, stoneColors, travel_forward_value, travel_backward_value);
+
+            myFirstStoneWasDelivered = true;
 
             //Step 1: turn Left towards 2nd Skystone
             spin_LeftAndStop(driveActions, SPEED - 0.1, 1.15);
@@ -142,7 +141,7 @@ public class SkystoneRedBridgeWithArm extends HelperAction {
 
             //Step 10: Repeat collect and deliver again
             travel_forward_value = 1.5;
-            travel_backward_value = 0.45;
+            travel_backward_value = 0.3;
             collect_Skystone_Deliver_And_Return(driveActions, stoneColors, travel_forward_value, travel_backward_value);
 
         }
@@ -171,7 +170,7 @@ public class SkystoneRedBridgeWithArm extends HelperAction {
 
         //Step 4: drive BACKWARDS to align with the bridge
         drive_ReverseAndStop(driveActions, SPEED, 0.2);
-        sleep(100);
+        sleep(1000);
 
         //Step 5: turn Right towards the bridge
         if (stoneColors.isStone_6()){
@@ -179,8 +178,16 @@ public class SkystoneRedBridgeWithArm extends HelperAction {
             sleep(100);
 
         }else{
-            spin_RightAndStop(driveActions, SPEED, 0.98);
+            spin_RightAndStop(driveActions, SPEED, 1.0);
             sleep(100);
+        }
+
+        if(myFirstStoneWasDelivered){
+
+            if(stoneColors.isStone_4()|| stoneColors.isStone_5() || stoneColors.isStone_6()){
+
+                strafe_RightAndStop(driveActions, SPEED, 1.0);
+            }
         }
 
         //Step 6: drive FORWARD towards the bridge

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.atomic.gobilda.autonomous.unused;
+package org.firstinspires.ftc.atomic.gobilda.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -8,15 +8,15 @@ import org.firstinspires.ftc.atomic.gobilda.actions.DriveWheelActions;
 
 /**
  * Purpose:
- * Start from Blue Quarry side - place on the 2nd tile
+ * Start from Red Quarry side - place on the 2nd tile
  * Go FORWARD toward Quarry
- * Strafe LEFT under bridge
+ * Strafe RIGHT under bridge
  */
-@Autonomous(name = "Blue-Quarry To Bridge", group = "GoBilda")
-@Disabled
+@Autonomous(name = "Red-Quarry To Bridge", group = "GoBilda")
 
-//PLACE ROBOT FORWARD FACING BLUE QUARRY. ALIGHT WITH 2nd TILE ON BRIDGE SIDE.
-public class QuarryToBlueBridge extends LinearOpMode {
+
+//PLACE ROBOT FORWARD FACING RED QUARRY. ALIGHT WITH 2nd TILE ON BRIDGE SIDE.
+public class QuarryToRedBridge extends LinearOpMode {
 
     @Override
     public void runOpMode() {
@@ -28,12 +28,12 @@ public class QuarryToBlueBridge extends LinearOpMode {
 
         // Step 1:  Drive Forward
         driveActions.setMotorDirection_Forward();
-        driveActions.driveByTime(this, 0.5, 1.2);
+        driveActions.driveByTime(this, 0.5, 1.0);
         driveActions.stop();
 
-        // Step 2:  Strafe left
-        driveActions.setMotorDirection_StrafeLeft();
-        driveActions.driveByTime(this, 0.5, 2.0);
+        // Step 2:  Strafe right
+        driveActions.setMotorDirection_StrafeRight();
+        driveActions.driveByTime(this, 0.5, 1.75);
         driveActions.stop();
 
     }

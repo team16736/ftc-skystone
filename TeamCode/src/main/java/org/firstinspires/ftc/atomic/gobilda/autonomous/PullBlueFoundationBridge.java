@@ -21,31 +21,35 @@ public class PullBlueFoundationBridge extends HelperAction {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step 1:  Strafe RIGHT
-        strafe_RightAndStop(driveActions, SPEED, 0.9);
-        sleep(2000); //wait for 2
+        // Step 1:  Strafe Right
+        strafe_RightAndStop(driveActions, SPEED, 0.4);
+        sleep(1000); //wait for 2 seconds
 
-
-         // Step 2: Drive REVERSE towards the building zone
-        drive_ReverseAndStop(driveActions, SPEED, 1.5);
-        sleep(4000);
+        // Step 2: Drive REVERSE towards the building zone
+        drive_ReverseAndStop(driveActions, SPEED, 1.6);
+        sleep(1000);
 
         // Step 3: Move rear Hooks DOWN to grab the foundation
         hookActions.moveHooksDown();
         sleep(2000);
 
-
         // Step 4: Drive FORWARD towards building site
-        drive_ForwardAndStop(driveActions, SPEED-0.2, 5.5); //SPEED-0.5, added 2.5 driving time
-        sleep(2000);
+        driveActions.applySensorSpeed = true;// we have altered the speed for the forwards movement
+        drive_ForwardAndStop(driveActions, SPEED-0.2 , 1.0); //SPEED-0.5, added 2.5 driving time
+        sleep(250);
 
-        // Step 5: Hook move UP to release the foundation
+        //Step 4.1-4.5
+        drive_ForwardAndStop(driveActions, SPEED-0.2 , 5); //SPEED-0.5, added 2.5 driving time
+        sleep(250);
+
+        // Step5: Hook move UP to release the foundation
         hookActions.moveHooksUp();
-        sleep(2000);
+        sleep(1000);
 
-        // Step 6: Strafe LEFT
-        strafe_LeftAndStop(driveActions, SPEED, 1.8);
-        sleep(2000);
+        driveActions.applySensorSpeed = false;// we have altered the speed for the forwards movement
+
+        // Step 6: Strafe Left and park under bridge
+        strafe_LeftAndStop(driveActions, SPEED, 2);
 
 
         // Step 7: Move Backwards
@@ -54,7 +58,7 @@ public class PullBlueFoundationBridge extends HelperAction {
 
 
         //Step 8: Strafe LEFT and park under bridge
-        strafe_LeftAndStop(driveActions, SPEED, 1.2);
+        strafe_LeftAndStop(driveActions, SPEED, 1);
         sleep(2000);
     }
 

@@ -22,11 +22,11 @@ public class PullRedFoundationWall extends HelperAction {
         waitForStart();
 
         // Step 1:  Strafe LEFT
-        strafe_LeftAndStop(driveActions, SPEED, 0.28);
+        strafe_LeftAndStop(driveActions, SPEED, 0.4);
        sleep(1000); //wait for 2 seconds
 
         // Step 2: Drive REVERSE towards the building zone
-        drive_ReverseAndStop(driveActions, SPEED, 1.25);
+        drive_ReverseAndStop(driveActions, SPEED, 1.6);
         sleep(1000);
 
         // Step 3: Move rear Hooks DOWN to grab the foundation
@@ -39,22 +39,8 @@ public class PullRedFoundationWall extends HelperAction {
         sleep(250);
 
         //Step 4.1-4.5
-        drive_ForwardAndStop(driveActions, SPEED-0.2 , 1.5); //SPEED-0.5, added 2.5 driving time
+        drive_ForwardAndStop(driveActions, SPEED-0.2 , 5); //SPEED-0.5, added 2.5 driving time
         sleep(250);
-
-        drive_ForwardAndStop(driveActions, SPEED-0.2 , 1.5); //SPEED-0.5, added 2.5 driving time
-        sleep(250);
-
-        drive_ForwardAndStop(driveActions, SPEED-0.2 , 1.5); //SPEED-0.5, added 2.5 driving time
-        sleep(250);
-
-        drive_ForwardAndStop(driveActions, SPEED-0.2 , 1.5); //SPEED-0.5, added 2.5 driving time
-        sleep(250);
-
-        drive_ForwardAndStop(driveActions, SPEED-0.2 , 1.5); //SPEED-0.5, added 2.5 driving time
-        sleep(250);
-
-
 
         // Step5: Hook move UP to release the foundation
         hookActions.moveHooksUp();
